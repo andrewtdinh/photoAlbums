@@ -23,7 +23,6 @@ angular.module('photoAlbums')
 
     reader.onloadend = function () {
       preview.src = reader.result;
-      console.log(reader.result);
       Album.addPhoto(reader.result, $scope.name);
     };
 

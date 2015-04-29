@@ -1,11 +1,13 @@
 H4 ALBUM LIST
 
 .row
-  .col-xs-6
+  .col-xs-4
     table.table.table-striped
       thead
         tr
           th Album Name
+          th Delete
       tbody
-        tr(ng-repeat='album in albums')
+        tr(ng-repeat='album in albums track by $index')
           td: a(ui-sref='albums.show({album:album})') {{album}}
+          td: button.btn.btn-danger.btn-xs(ng-click='removeAlbum(album, $index)') Delete

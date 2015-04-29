@@ -18,23 +18,41 @@ angular.module('photoAlbums')
     var albumCopy = angular.copy(album);
     albumCopy.date = album.date.getTime();
     albumCopy.createdAt = $window.Firebase.ServerValue.TIMESTAMP;
-
-    console.log(albumCopy);
-
     var fbAlbum = $rootScope.fbUser.child('albums/' + album.name);
     var afAlbum = $firebaseArray(fbAlbum);
     return afAlbum.$add(albumCopy);
-
   };
 
   Album.addPhoto = function(photoString, albumName){
     var fbPhotos = $rootScope.fbUser.child('albums/' + albumName + '/photos');
-    // console.log('albumName: ', albumName);
     var afPhotos = $firebaseArray(fbPhotos);
-
-    console.log('fbPhotos: ', fbPhotos);
     return afPhotos.$add(photoString);
 
   };
+
+  Album.removeAlbum = function(albumName, index){
+    console.log(albumName, index);
+    var fbAlbums = $rootScope.fbUser.child('albums');
+    var afAlbums = $firebaseArray(fbAlbums);
+    console.log('fbAlbums: ', fbAlbums);
+    afAlbums.$loaded().then(function(){
+      afAlbums.$remove(index);
+      afAlbums.$save();
+      var newNameString = removeStrAlbum(albumName);
+      $rootScope.afUser.names = newNameString.join(',');
+      return $rootScope.afUser.$save();
+    });
+  }
+
+  function removeStrAlbum(albumName){
+    var names = $rootScope.afUser.names ? $rootScope.afUser.names.split(',') : [];
+    console.log(names.indexOf(albumName));
+    if (names.indexOf(albumName) !== -1){
+      names.splice(names.indexOf(albumName), 1);
+    }
+    return names;
+    console.log('modName: ', names);
+  }
+
   return Album;
 });

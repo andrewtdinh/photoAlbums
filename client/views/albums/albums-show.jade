@@ -12,10 +12,10 @@ h2 {{name}}
       .form-group
         label Add Photo
         input.form-control(type='file', ng-model='photo')
-        button.btn.btn-success(ng-click='convertPhoto(photo)')
+        button.btn.btn-success(ng-click='convertPhoto(photo)') Upload photo
         img
 table
   tbody
     tr(ng-repeat='photo in afPhotos track by $index')
-      td: img.img-responsive.img-thumbnail(ng-src='{{photo.$value}}')
+      td: img.img-responsive.img-thumbnail.gallery(ng-src='{{photo.$value}}')
     
