@@ -1,1 +1,11 @@
 H4 ALBUM LIST
+
+.row
+  .col-xs-6
+    table.table.table-striped
+      thead
+        tr
+          th Album Name
+      tbody
+        tr(ng-repeat='album in albums')
+          td: a(ui-sref='albums.show({name:album})') {{album}}
