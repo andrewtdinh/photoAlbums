@@ -34,24 +34,27 @@ angular.module('photoAlbums')
     console.log(albumName, index);
     var fbAlbums = $rootScope.fbUser.child('albums');
     var afAlbums = $firebaseArray(fbAlbums);
-    console.log('fbAlbums: ', fbAlbums);
+    console.log('index: ', index);
     afAlbums.$loaded().then(function(){
-      afAlbums.$remove(index);
-      afAlbums.$save();
-      var newNameString = removeStrAlbum(albumName);
-      $rootScope.afUser.names = newNameString.join(',');
-      return $rootScope.afUser.$save();
+      afAlbums.$remove(afAlbums[index]).then(function(){
+        console.log('enter');
+        var newNameString = removeStrAlbum(albumName);
+        $rootScope.afUser.names = newNameString.join(',');
+        $rootScope.afUser.$save();
+      })
     });
   }
 
   function removeStrAlbum(albumName){
     var names = $rootScope.afUser.names ? $rootScope.afUser.names.split(',') : [];
-    console.log(names.indexOf(albumName));
+    console.log('rootscope.afUser.index: ', names.indexOf(albumName));
     if (names.indexOf(albumName) !== -1){
       names.splice(names.indexOf(albumName), 1);
     }
+    console.log('names: ', names);
+
     return names;
-    console.log('modName: ', names);
+
   }
 
   return Album;
