@@ -1,9 +1,14 @@
 'use strict';
 
-angular.module('poseidon')
+angular.module('photoAlbums')
 .factory('User', function($rootScope){
 
   function User(){
+  }
+
+  User.oauth = function(provider){
+    console.log(provider);
+    return $rootScope.afAuth.$authWithOAuthPopup(provider);
   }
 
   User.register = function(user){
