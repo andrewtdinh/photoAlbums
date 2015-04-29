@@ -1,0 +1,14 @@
+h2 {{name}}
+.row
+  .col-xs-3.col-xs-offset-4
+    form
+      .form-group
+        label Description
+        input.form-control(type='text', ng-model='album.description')
+        label Date
+        input.form-control(type='date', ng-model='album.date')
+        button.btn.btn-success(ng-click='saveAlbumInfo(album)') Update Album Info
+    //- form
+    //-   .form-group
+    //-     label Add Photo
+    //-     input.form-control(type='file', ng-model='photo')

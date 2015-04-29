@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('photoAlbums')
-.factory('Album', function($rootScope){
+.factory('Album', function($rootScope, $window, $firebaseArray){
 
   function Album(){
   }
@@ -12,6 +12,19 @@ angular.module('photoAlbums')
     names.push(album.name);
     $rootScope.afUser.names = names.join(',');
     return $rootScope.afUser.$save();
+  };
+
+  Album.addInfo = function(album){
+    var albumCopy = angular.copy(album);
+    albumCopy.date = album.date.getTime();
+    albumCopy.createdAt = $window.Firebase.ServerValue.TIMESTAMP;
+
+    console.log(albumCopy);
+
+    var fbAlbum = $rootScope.fbUser.child('albums/' + album.name);
+    var afAlbum = $firebaseArray(fbAlbum);
+    return afAlbum.$add(albumCopy);
+
   };
   return Album;
 });
