@@ -23,6 +23,8 @@
     h4 Description: {{printAlbum.description}}
     h4 Album Date: {{printAlbum.date | date: 'MM-dd-yyyy'}}
     h4 Created At: {{printAlbum.createdAt | date: 'MM-dd-yyyy'}}
+  .col-xs-4
+    img.img-responsive.img-thumbnail(ng-src='{{afPhotos[0].$value}}')
 .row
   .col-xs-2.col-xs-offset-5
     table.table.table-striped
