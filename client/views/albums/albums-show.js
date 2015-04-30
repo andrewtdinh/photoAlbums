@@ -3,12 +3,11 @@
 angular.module('photoAlbums')
 .controller('AlbumsShowCtrl', function($rootScope, $scope, $state, Album, $window, $firebaseArray){
   $scope.name = $state.params.album;
-  console.log($rootScope.afUser.albums)
+  displayInfo();
 
   $rootScope.afUser.$loaded()
   .then(function(){
     $scope.afPhotos = getPhotos();
-    console.info('$scope.afPhotos: ', $scope.afPhotos);
   });
 
 
@@ -35,6 +34,14 @@ angular.module('photoAlbums')
       preview.src = "";
     }
   };
+  function displayInfo(){
+    var userAlbums = $scope.afUser.albums;
+    var key = Object.keys(userAlbums[$state.params.album])[0];
+    var printAlbum = userAlbums[$state.params.album][key];
+    $scope.printAlbum = printAlbum;
+    console.log('printAlbum: ', printAlbum);
+    // $scope.afUser.albums.hawaii["-Jo7dQz5Qb-l5I59vgCm"].description
+  }
 
   function getPhotos(){
     var fbPhotos = $rootScope.fbUser.child('albums/' + $state.params.album+ '/photos');

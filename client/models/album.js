@@ -7,7 +7,6 @@ angular.module('photoAlbums')
   }
 
   Album.add = function(album){
-    console.log($rootScope.afUser);
     var names = $rootScope.afUser.names ? $rootScope.afUser.names.split(',') : [];
     names.push(album.name);
     $rootScope.afUser.names = names.join(',');
@@ -31,7 +30,6 @@ angular.module('photoAlbums')
   };
 
   Album.removeAlbum = function(albumName, index){
-    console.log(albumName, index);
     $rootScope.afUser.$loaded().then(function(){
       var fbAlbums = $rootScope.fbUser.child('albums');
       var afAlbums = $firebaseArray(fbAlbums);
