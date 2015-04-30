@@ -32,28 +32,30 @@ angular.module('photoAlbums')
 
   Album.removeAlbum = function(albumName, index){
     console.log(albumName, index);
-    var fbAlbums = $rootScope.fbUser.child('albums');
-    var afAlbums = $firebaseArray(fbAlbums);
-    console.log('index: ', index);
-    afAlbums.$loaded().then(function(){
-      afAlbums.$remove(afAlbums[index]).then(function(){
-        console.log('enter');
-        var newNameString = removeStrAlbum(albumName);
-        $rootScope.afUser.names = newNameString.join(',');
-        $rootScope.afUser.$save();
-      })
+    $rootScope.afUser.$loaded().then(function(){
+      var fbAlbums = $rootScope.fbUser.child('albums');
+      var afAlbums = $firebaseArray(fbAlbums);
+      var modedNameStr = removeStrAlbum(albumName);
+      $rootScope.afUser.names = modedNameStr;
+      $rootScope.afUser.$save();
+      // console.log(afAlbums[index]);
+      afAlbums.$loaded().then(function(){
+        afAlbums.$remove(afAlbums[index]);
+      });
+
+
+
     });
   }
 
   function removeStrAlbum(albumName){
     var names = $rootScope.afUser.names ? $rootScope.afUser.names.split(',') : [];
-    console.log('rootscope.afUser.index: ', names.indexOf(albumName));
+    // console.log('rootscope.afUser.index: ', names.indexOf(albumName));
     if (names.indexOf(albumName) !== -1){
       names.splice(names.indexOf(albumName), 1);
     }
-    console.log('names: ', names);
-
-    return names;
+    // console.log('names: ', names);
+    return names.join(',');
 
   }
 

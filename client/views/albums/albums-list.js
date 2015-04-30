@@ -9,7 +9,10 @@ angular.module('photoAlbums')
 
   $scope.removeAlbum = function(albumName, index){
     Album.removeAlbum(albumName, index);
-    $scope.albums = $scope.afUser.names ? $scope.afUser.names.split(',') : [];
-  };
 
+    $scope.afUser.$loaded(function(){
+      $scope.albums = $scope.afUser.names ? $scope.afUser.names.split(',') : [];
+    });
+
+  };
 });

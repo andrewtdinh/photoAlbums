@@ -36,7 +36,6 @@ angular.module('photoAlbums')
   function getPhotos(){
     var fbPhotos = $rootScope.fbUser.child('albums/' + $state.params.album+ '/photos');
     var afPhotos = $firebaseArray(fbPhotos);
-    debugger;
     return afPhotos;
   }
 });
