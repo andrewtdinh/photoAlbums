@@ -19,8 +19,22 @@ angular.module('photoAlbums')
     albumCopy.createdAt = $window.Firebase.ServerValue.TIMESTAMP;
     var fbAlbum = $rootScope.fbUser.child('albums/' + album.name);
     var afAlbum = $firebaseArray(fbAlbum);
-    // console.log(afAlbum.$value);
-    return afAlbum.$add(albumCopy);
+    $rootScope.afUser.$loaded().then(function(){
+      // console.log($rootScope.afUser.albums[album.name]);
+      var key = Object.keys($rootScope.afUser.albums[album.name])[0];
+      // $rootScope.afUser.albums.test[key]
+      console.log($rootScope.afUser.albums[album.name][key].description);
+      if ($rootScope.afUser.albums[album.name][key].description){
+        console.info(albumCopy);
+        $rootScope.afUser.albums[album.name][key] = albumCopy;
+        console.log($rootScope.afUser.albums[album.name][key]);
+        return $rootScope.afUser.$save();
+      }
+      else{
+        return afAlbum.$add(albumCopy);
+      }
+    });
+    // Object.keys($rootScope.afUser.albums.seattle)[0]
   };
 
   Album.addPhoto = function(photoString, albumName){

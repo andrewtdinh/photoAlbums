@@ -22,6 +22,7 @@ angular.module('photoAlbums')
 
     Album.addInfo(album);
     $scope.album = {};
+    displayInfo();
   };
 
   $scope.convertPhoto = function(photo) {
@@ -47,6 +48,7 @@ angular.module('photoAlbums')
 
     console.log('printAlbum: ', printAlbum);
     $scope.printAlbum = printAlbum;
+    $scope.afUser = $rootScope.afUser;
     // displayInfo();
     // $rootScope.afUser.$loaded()
     // .then(function(){
