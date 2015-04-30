@@ -47,7 +47,7 @@ angular.module('photoAlbums')
 
     console.log('printAlbum: ', printAlbum);
     $scope.printAlbum = printAlbum;
-    displayInfo();
+    // displayInfo();
     // $rootScope.afUser.$loaded()
     // .then(function(){
     //

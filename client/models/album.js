@@ -19,6 +19,7 @@ angular.module('photoAlbums')
     albumCopy.createdAt = $window.Firebase.ServerValue.TIMESTAMP;
     var fbAlbum = $rootScope.fbUser.child('albums/' + album.name);
     var afAlbum = $firebaseArray(fbAlbum);
+    // console.log(afAlbum.$value);
     return afAlbum.$add(albumCopy);
   };
 
