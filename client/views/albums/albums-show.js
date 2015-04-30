@@ -3,6 +3,8 @@
 angular.module('photoAlbums')
 .controller('AlbumsShowCtrl', function($rootScope, $scope, $state, Album, $window, $firebaseArray){
   $scope.name = $state.params.album;
+  console.log($rootScope.afUser.albums)
+
   $rootScope.afUser.$loaded()
   .then(function(){
     $scope.afPhotos = getPhotos();
@@ -14,6 +16,7 @@ angular.module('photoAlbums')
     album.name = $state.params.album;
 
     Album.addInfo(album);
+    $scope.album = {};
   };
 
   $scope.convertPhoto = function(photo) {

@@ -7,6 +7,7 @@ angular.module('photoAlbums')
     Album.add(album)
     .then(function(){
       $scope.album.name = '';
+      $state.go('home');
     });
   };
 

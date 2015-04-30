@@ -13,7 +13,7 @@ h2 {{name}}
         label Add Photo
         input.form-control(type='file', ng-model='photo')
         button.btn.btn-success(ng-click='convertPhoto(photo)') Upload photo
-        img
+        img.previmg
 table
   tbody
     tr(ng-repeat='photo in afPhotos track by $index')
