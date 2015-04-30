@@ -1,5 +1,14 @@
 .row
   .col-xs-4.col-xs-offset-4
+    
+    form
+      .form-group
+        label Add Photo
+        input.form-control(type='file', ng-model='photo')
+      .form-group
+        button.btn.btn-success.center-block(ng-click='convertPhoto(photo)') Upload photo
+      .form-group
+        img.previmg.center-block
     form
       .form-group
         h2 {{name}}
@@ -9,14 +18,6 @@
         input.form-control(type='date', ng-model='album.date')
       .form-group
         button.btn.btn-success.center-block(ng-click='saveAlbumInfo(album)') Update Album Info
-    form
-      .form-group
-        label Add Photo
-        input.form-control(type='file', ng-model='photo')
-      .form-group
-        button.btn.btn-success.center-block(ng-click='convertPhoto(photo)') Upload photo
-      .form-group
-        img.previmg.center-block
 .row
   .col-xs-2.col-xs-offset-4
     img.img-responsive.img-thumbnail.feature(ng-src='{{afPhotos[0].$value}}')
@@ -24,7 +25,7 @@
     h3 Album Information
     h4 Description: {{printAlbum.description}}
     h4 Album Date: {{printAlbum.date | date: 'MM-dd-yyyy'}}
-    h4 Created At: {{printAlbum.createdAt | date: 'MM-dd-yyyy'}}
+    //- h4 Created At: {{printAlbum.createdAt | date: 'MM-dd-yyyy'}}
 .row
   .col-xs-2.col-xs-offset-5
     table.table.table-striped

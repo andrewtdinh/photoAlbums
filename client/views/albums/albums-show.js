@@ -22,10 +22,12 @@ angular.module('photoAlbums')
 
     Album.addInfo(album);
     $scope.album = {};
-    displayInfo();
+    $scope.afUser.$loaded().then(function(){
+      displayInfo();
+    });
   };
 
-  $scope.convertPhoto = function(photo) {
+  $scope.convertPhoto = function(photo){
     var preview = document.querySelector('img');
     var file    = document.querySelector('input[type=file]').files[0];
     var reader  = new FileReader();
@@ -38,8 +40,9 @@ angular.module('photoAlbums')
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      preview.src = "";
+      preview.src = '';
     }
+    $scope.photo = null;
   };
   function displayInfo(){
     var userAlbums = $scope.afUser.albums;
@@ -49,6 +52,7 @@ angular.module('photoAlbums')
     console.log('printAlbum: ', printAlbum);
     $scope.printAlbum = printAlbum;
     $scope.afUser = $rootScope.afUser;
+    $scope.printAlbum.createdAt = new Date(printAlbum.createdAt);
     // displayInfo();
     // $rootScope.afUser.$loaded()
     // .then(function(){
