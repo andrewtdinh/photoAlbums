@@ -4,6 +4,8 @@ angular.module('photoAlbums')
 .controller('AlbumsShowCtrl', function($rootScope, $scope, $state, Album, $window, $firebaseArray){
   $scope.name = $state.params.album;
 
+  // $scope.afUSer.$watch(displayInfo);
+
   $rootScope.afUser.$loaded()
   .then(function(){
     $scope.afPhotos = getPhotos();
@@ -42,8 +44,14 @@ angular.module('photoAlbums')
     var userAlbums = $scope.afUser.albums;
     var key = Object.keys(userAlbums[$state.params.album])[0];
     var printAlbum = userAlbums[$state.params.album][key];
-    $scope.printAlbum = printAlbum;
+
     console.log('printAlbum: ', printAlbum);
+    $scope.printAlbum = printAlbum;
+    displayInfo();
+    // $rootScope.afUser.$loaded()
+    // .then(function(){
+    //
+    // });
     // $scope.afUser.albums.hawaii["-Jo7dQz5Qb-l5I59vgCm"].description
   }
 
