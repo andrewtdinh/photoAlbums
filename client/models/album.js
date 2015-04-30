@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('photoAlbums')
-.factory('Album', function($rootScope, $window, $firebaseArray){
+.factory('Album', function($rootScope, $window, $firebaseArray, $state){
 
   function Album(){
   }
@@ -40,11 +40,21 @@ angular.module('photoAlbums')
       afAlbums.$loaded().then(function(){
         afAlbums.$remove(afAlbums[index]);
       });
-
-
-
     });
-  }
+  };
+
+  Album.deleteImg = function(photo, index){
+    // var userAlbums = $rootScope.afUser.albums;
+    // var photos = userAlbums[$state.params.album].photos;
+    var fbPhotos = $rootScope.fbUser.child('albums/'+$state.params.album+'/photos');
+    var afPhotos = $firebaseArray(fbPhotos);
+    // afPhotos.$remove(Object.keys(photos)[index]);
+    console.log('afPhotos: ', afPhotos);
+    console.log('fbPhotos: ', fbPhotos);
+    afPhotos.$loaded().then(function(){
+      afPhotos.$remove(afPhotos[index]);
+    });
+  };
 
   function removeStrAlbum(albumName){
     var names = $rootScope.afUser.names ? $rootScope.afUser.names.split(',') : [];

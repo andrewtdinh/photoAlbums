@@ -10,6 +10,10 @@ angular.module('photoAlbums')
     displayInfo();
   });
 
+  $scope.deleteImg = function(photo, index){
+    // console.log(photo, index);
+    Album.deleteImg(photo, index);
+  };
 
   $scope.saveAlbumInfo = function(album){
     album.name = $state.params.album;
